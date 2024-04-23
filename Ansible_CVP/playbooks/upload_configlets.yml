@@ -1,0 +1,7 @@
+---
+- name: Upload configlets
+  hosts: cvp1
+  tasks:
+    - name: Upload configlets
+      arista.cvp.cv_configlet_v3:
+        configlets: "{{ CONFIGLETS }}"

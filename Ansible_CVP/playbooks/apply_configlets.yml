@@ -1,0 +1,11 @@
+---
+- name: Apply configlets
+  hosts: cvp1
+  tasks:
+    - name: Assign configlet to devices
+      arista.cvp.cv_device_v3:
+        devices: "{{ cvp_devices }}"
+      register: RUN_DEVICES
+    - name: Run change control
+      arista.cvp.cv_task_v3:
+        tasks: "{{ RUN_DEVICES.taskIds }}"

@@ -1,0 +1,22 @@
+
+CONFIGLETS:
+  tony_demo: "{{ lookup('file', '~/project/persist/April_Demos/Ansible_CVP/configlets/tony_demo.cfg') }}"
+  tony_demo2: "{{ lookup('file', '~/project/persist/April_Demos/Ansible_CVP/configlets/tony2.cfg') }}"
+
+cvp_devices:
+  - fqdn: leaf1
+    parentContainerName: Leaf
+    configlets:
+      - 'tony_demo'
+  - fqdn: leaf2
+    parentContainerName: Leaf
+    configlets:
+      - 'tony_demo'
+  - fqdn: leaf3
+    parentContainerName: Leaf
+    configlets:
+      - 'tony_demo'
+  - fqdn: leaf4
+    parentContainerName: Leaf
+    configlets:
+      - 'tony_demo'
