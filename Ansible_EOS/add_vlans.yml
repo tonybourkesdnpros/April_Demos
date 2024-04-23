@@ -1,0 +1,14 @@
+---
+- name: Add VLANs
+  hosts: LEAFS
+  tasks:
+    - name: Add VLAN 20
+      arista.eos.eos_vlans:
+        config:
+          - vlan_id: 10
+            name: DMZ
+            state: active
+          - vlan_id: 20
+            name: Internal
+            state: active
+        state: merged
