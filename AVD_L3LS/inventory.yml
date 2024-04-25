@@ -36,6 +36,7 @@ all:
             spine1:
             spine2:
             spine3:
+            spine4:
         LEAFS:
           vars: 
             type: l3leaf

@@ -25,28 +25,37 @@ router_bgp:
     peer_groups:
     - name: IPv4-UNDERLAY-PEERS
       activate: true
+      next_hop:
+        address_family_ipv6:
+          enabled: true
+          originate: true
     - name: EVPN-OVERLAY-PEERS
       activate: false
   redistribute_routes:
   - source_protocol: connected
     route_map: RM-CONN-2-BGP
-  neighbors:
-  - ip_address: 192.168.103.5
+  neighbor_interfaces:
+  - name: Ethernet3
     peer_group: IPv4-UNDERLAY-PEERS
     remote_as: '65100'
     description: leaf1_Ethernet5
-  - ip_address: 192.168.103.11
+  - name: Ethernet4
     peer_group: IPv4-UNDERLAY-PEERS
     remote_as: '65100'
     description: leaf2_Ethernet5
-  - ip_address: 192.168.103.17
+  - name: Ethernet5
     peer_group: IPv4-UNDERLAY-PEERS
     remote_as: '65299'
     description: leaf3_Ethernet5
-  - ip_address: 192.168.103.23
+  - name: Ethernet6
     peer_group: IPv4-UNDERLAY-PEERS
     remote_as: '65299'
     description: leaf4_Ethernet5
+  address_family_evpn:
+    peer_groups:
+    - name: EVPN-OVERLAY-PEERS
+      activate: true
+  neighbors:
   - ip_address: 192.168.101.1
     peer_group: EVPN-OVERLAY-PEERS
     description: leaf1
@@ -63,16 +72,13 @@ router_bgp:
     peer_group: EVPN-OVERLAY-PEERS
     description: leaf4
     remote_as: '65299'
-  address_family_evpn:
-    peer_groups:
-    - name: EVPN-OVERLAY-PEERS
-      activate: true
 static_routes:
 - vrf: MGMT
   destination_address_prefix: 0.0.0.0/0
   gateway: 192.168.0.1
 service_routing_protocols_model: multi-agent
-ip_routing: true
+ipv6_unicast_routing: true
+ip_routing_ipv6_interfaces: true
 vlan_internal_order:
   allocation: ascending
   range:
@@ -104,7 +110,7 @@ ethernet_interfaces:
   shutdown: false
   mtu: 1500
   type: routed
-  ip_address: 192.168.103.4/31
+  ipv6_enable: true
 - name: Ethernet4
   peer: leaf2
   peer_interface: Ethernet5
@@ -113,7 +119,7 @@ ethernet_interfaces:
   shutdown: false
   mtu: 1500
   type: routed
-  ip_address: 192.168.103.10/31
+  ipv6_enable: true
 - name: Ethernet5
   peer: leaf3
   peer_interface: Ethernet5
@@ -122,7 +128,7 @@ ethernet_interfaces:
   shutdown: false
   mtu: 1500
   type: routed
-  ip_address: 192.168.103.16/31
+  ipv6_enable: true
 - name: Ethernet6
   peer: leaf4
   peer_interface: Ethernet5
@@ -131,7 +137,7 @@ ethernet_interfaces:
   shutdown: false
   mtu: 1500
   type: routed
-  ip_address: 192.168.103.22/31
+  ipv6_enable: true
 loopback_interfaces:
 - name: Loopback0
   description: EVPN_Overlay_Peering

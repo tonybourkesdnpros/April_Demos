@@ -6,7 +6,7 @@ fabric_name: FABRIC
 
 # Enable vlan aware bundles
 evpn_vlan_aware_bundles: false
-
+underlay_rfc5549: true
 
 # Spine Switches
 spine:
@@ -25,6 +25,9 @@ spine:
     - name: spine3
       id: 13
       mgmt_ip: 192.168.0.13/24
+    - name: spine4
+      id: 14
+      mgmt_ip: 192.168.0.14/24
 
 
 # Leaf switches. Most leafs will be l3leaf, not l2leaf.
@@ -34,8 +37,8 @@ l3leaf:
     platform: cEOS
     loopback_ipv4_pool: 192.168.101.0/24 # This is loopback0 (underlay)
     vtep_loopback_ipv4_pool: 192.168.102.0/24 # This is loopback1 (VTEP)
-    uplink_interfaces: [Ethernet3, Ethernet4, Ethernet5] # Leaf uplinks
-    uplink_switches: [spine1, spine2, spine3] # Where the leaf uplinks go
+    uplink_interfaces: [Ethernet3, Ethernet4, Ethernet5, Ethernet6] # Leaf uplinks
+    uplink_switches: [spine1, spine2, spine3, spine4] # Where the leaf uplinks go
     uplink_ipv4_pool: 192.168.103.0/24 # For the p2p interfaces to chopped up into /31s
     mlag_interfaces: [Ethernet1, Ethernet2] # MLAG peer link
     mlag_peer_ipv4_pool: 10.255.252.0/24 # MLAG peer IPs
@@ -51,22 +54,22 @@ l3leaf:
         - name: leaf1
           id: 1
           mgmt_ip: 192.168.0.21/24
-          uplink_switch_interfaces: [Ethernet3, Ethernet3, Ethernet3]
+          uplink_switch_interfaces: [Ethernet3, Ethernet3, Ethernet3, Ethernet3]
         - name: leaf2
           id: 2
           mgmt_ip: 192.168.0.22/24
-          uplink_switch_interfaces: [Ethernet4, Ethernet4, Ethernet4]
+          uplink_switch_interfaces: [Ethernet4, Ethernet4, Ethernet4, Ethernet4]
     - group: mlag2
       bgp_as: 65299 # Overriden automatic allocation for host4/R1 peering
       nodes:
         - name: leaf3
           id: 3
           mgmt_ip: 192.168.0.23/24
-          uplink_switch_interfaces: [Ethernet5, Ethernet5, Ethernet5]
+          uplink_switch_interfaces: [Ethernet5, Ethernet5, Ethernet5, Ethernet5]
         - name: leaf4
           id: 4
           mgmt_ip: 192.168.0.24/24
-          uplink_switch_interfaces: [Ethernet6, Ethernet6, Ethernet6]
+          uplink_switch_interfaces: [Ethernet6, Ethernet6, Ethernet6, Ethernet6]
 
 
 

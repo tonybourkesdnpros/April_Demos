@@ -1,4 +1,4 @@
-# spine1
+# spine4
 
 ## Table of Contents
 
@@ -40,7 +40,7 @@
 
 | Management Interface | description | Type | VRF | IP Address | Gateway |
 | -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Management0 | oob_management | oob | MGMT | 192.168.0.11/24 | 192.168.0.1 |
+| Management0 | oob_management | oob | MGMT | 192.168.0.14/24 | 192.168.0.1 |
 
 ##### IPv6
 
@@ -56,7 +56,7 @@ interface Management0
    description oob_management
    no shutdown
    vrf MGMT
-   ip address 192.168.0.11/24
+   ip address 192.168.0.14/24
 ```
 
 ### DNS Domain
@@ -141,38 +141,38 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Type | Channel Group | IPv6 Address | VRF | MTU | Shutdown | ND RA Disabled | Managed Config Flag | IPv6 ACL In | IPv6 ACL Out |
 | --------- | ----------- | ---- | --------------| ------------ | --- | --- | -------- | -------------- | -------------------| ----------- | ------------ |
-| Ethernet3 | P2P_LINK_TO_LEAF1_Ethernet3 | routed | - | - | default | 1500 | False | - | - | - | - |
-| Ethernet4 | P2P_LINK_TO_LEAF2_Ethernet3 | routed | - | - | default | 1500 | False | - | - | - | - |
-| Ethernet5 | P2P_LINK_TO_LEAF3_Ethernet3 | routed | - | - | default | 1500 | False | - | - | - | - |
-| Ethernet6 | P2P_LINK_TO_LEAF4_Ethernet3 | routed | - | - | default | 1500 | False | - | - | - | - |
+| Ethernet3 | P2P_LINK_TO_LEAF1_Ethernet6 | routed | - | - | default | 1500 | False | - | - | - | - |
+| Ethernet4 | P2P_LINK_TO_LEAF2_Ethernet6 | routed | - | - | default | 1500 | False | - | - | - | - |
+| Ethernet5 | P2P_LINK_TO_LEAF3_Ethernet6 | routed | - | - | default | 1500 | False | - | - | - | - |
+| Ethernet6 | P2P_LINK_TO_LEAF4_Ethernet6 | routed | - | - | default | 1500 | False | - | - | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
 ```eos
 !
 interface Ethernet3
-   description P2P_LINK_TO_LEAF1_Ethernet3
+   description P2P_LINK_TO_LEAF1_Ethernet6
    no shutdown
    mtu 1500
    no switchport
    ipv6 enable
 !
 interface Ethernet4
-   description P2P_LINK_TO_LEAF2_Ethernet3
+   description P2P_LINK_TO_LEAF2_Ethernet6
    no shutdown
    mtu 1500
    no switchport
    ipv6 enable
 !
 interface Ethernet5
-   description P2P_LINK_TO_LEAF3_Ethernet3
+   description P2P_LINK_TO_LEAF3_Ethernet6
    no shutdown
    mtu 1500
    no switchport
    ipv6 enable
 !
 interface Ethernet6
-   description P2P_LINK_TO_LEAF4_Ethernet3
+   description P2P_LINK_TO_LEAF4_Ethernet6
    no shutdown
    mtu 1500
    no switchport
@@ -187,7 +187,7 @@ interface Ethernet6
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback0 | EVPN_Overlay_Peering | default | 192.168.101.11/32 |
+| Loopback0 | EVPN_Overlay_Peering | default | 192.168.101.14/32 |
 
 ##### IPv6
 
@@ -203,7 +203,7 @@ interface Ethernet6
 interface Loopback0
    description EVPN_Overlay_Peering
    no shutdown
-   ip address 192.168.101.11/32
+   ip address 192.168.101.14/32
 ```
 
 ## Routing
@@ -271,7 +271,7 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65001|  192.168.101.11 |
+| 65001|  192.168.101.14 |
 
 | BGP Tuning |
 | ---------- |
@@ -331,7 +331,7 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 ```eos
 !
 router bgp 65001
-   router-id 192.168.101.11
+   router-id 192.168.101.14
    maximum-paths 4 ecmp 4
    no bgp default ipv4-unicast
    neighbor EVPN-OVERLAY-PEERS peer group

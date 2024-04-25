@@ -1,7 +1,7 @@
-hostname: spine1
+hostname: spine4
 router_bgp:
   as: '65001'
-  router_id: 192.168.101.11
+  router_id: 192.168.101.14
   bgp:
     default:
       ipv4_unicast: false
@@ -38,19 +38,19 @@ router_bgp:
   - name: Ethernet3
     peer_group: IPv4-UNDERLAY-PEERS
     remote_as: '65100'
-    description: leaf1_Ethernet3
+    description: leaf1_Ethernet6
   - name: Ethernet4
     peer_group: IPv4-UNDERLAY-PEERS
     remote_as: '65100'
-    description: leaf2_Ethernet3
+    description: leaf2_Ethernet6
   - name: Ethernet5
     peer_group: IPv4-UNDERLAY-PEERS
     remote_as: '65299'
-    description: leaf3_Ethernet3
+    description: leaf3_Ethernet6
   - name: Ethernet6
     peer_group: IPv4-UNDERLAY-PEERS
     remote_as: '65299'
-    description: leaf4_Ethernet3
+    description: leaf4_Ethernet6
   address_family_evpn:
     peer_groups:
     - name: EVPN-OVERLAY-PEERS
@@ -94,7 +94,7 @@ management_interfaces:
   description: oob_management
   shutdown: false
   vrf: MGMT
-  ip_address: 192.168.0.11/24
+  ip_address: 192.168.0.14/24
   gateway: 192.168.0.1
   type: oob
 management_api_http:
@@ -104,36 +104,36 @@ management_api_http:
 ethernet_interfaces:
 - name: Ethernet3
   peer: leaf1
-  peer_interface: Ethernet3
+  peer_interface: Ethernet6
   peer_type: l3leaf
-  description: P2P_LINK_TO_LEAF1_Ethernet3
+  description: P2P_LINK_TO_LEAF1_Ethernet6
   shutdown: false
   mtu: 1500
   type: routed
   ipv6_enable: true
 - name: Ethernet4
   peer: leaf2
-  peer_interface: Ethernet3
+  peer_interface: Ethernet6
   peer_type: l3leaf
-  description: P2P_LINK_TO_LEAF2_Ethernet3
+  description: P2P_LINK_TO_LEAF2_Ethernet6
   shutdown: false
   mtu: 1500
   type: routed
   ipv6_enable: true
 - name: Ethernet5
   peer: leaf3
-  peer_interface: Ethernet3
+  peer_interface: Ethernet6
   peer_type: l3leaf
-  description: P2P_LINK_TO_LEAF3_Ethernet3
+  description: P2P_LINK_TO_LEAF3_Ethernet6
   shutdown: false
   mtu: 1500
   type: routed
   ipv6_enable: true
 - name: Ethernet6
   peer: leaf4
-  peer_interface: Ethernet3
+  peer_interface: Ethernet6
   peer_type: l3leaf
-  description: P2P_LINK_TO_LEAF4_Ethernet3
+  description: P2P_LINK_TO_LEAF4_Ethernet6
   shutdown: false
   mtu: 1500
   type: routed
@@ -142,7 +142,7 @@ loopback_interfaces:
 - name: Loopback0
   description: EVPN_Overlay_Peering
   shutdown: false
-  ip_address: 192.168.101.11/32
+  ip_address: 192.168.101.14/32
 prefix_lists:
 - name: PL-LOOPBACKS-EVPN-OVERLAY
   sequence_numbers:
